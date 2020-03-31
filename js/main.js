@@ -16,7 +16,7 @@ function setMap(){
         .attr("height", height);
 
     //create Albers equal area conic projection centered on France
-    var projection = d3.geoAlbersUSA() //Composite projection is fixed. Does not support .center, .rotate, .clipAngle, or .clipExtent
+    var projection = d3.geoAlbersUsa() //Composite projection is fixed. Does not support .center, .rotate, .clipAngle, or .clipExtent
 
         .center([0, 46.2])      //specifies the [longitude, latitude] coordinates of the center of the developable surface.
 
