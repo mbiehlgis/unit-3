@@ -1,0 +1,21 @@
+.regions {
+    fill: black;
+    stroke: #7DFDFE !important;
+    stroke-width: 2px;
+}
+
+.states {
+    fill: #FFF;
+    stroke: black !important;
+    stroke-width: 2px;
+}
+
+.gratLines {
+    fill: none;
+    stroke: #bc13fe;
+    stroke-width: 1px;
+}
+
+.gratBackground {
+  fill: black;
+}
