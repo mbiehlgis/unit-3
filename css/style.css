@@ -5,8 +5,8 @@
 }
 
 .states {
-    fill: #FFF;
-    stroke: black !important;
+    fill: black;
+    stroke: #7DFDFE !important;
     stroke-width: 2px;
 }
 

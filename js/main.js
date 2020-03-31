@@ -18,11 +18,11 @@ function setMap(){
     //create Albers equal area conic projection centered on France
     var projection = d3.geoAlbersUsa() //Composite projection is fixed. Does not support .center, .rotate, .clipAngle, or .clipExtent
 
-        .center([0, 46.2])      //specifies the [longitude, latitude] coordinates of the center of the developable surface.
+        //.center([0, 46.2])      //specifies the [longitude, latitude] coordinates of the center of the developable surface.
 
-        .rotate([-2, 0, 0])     //specifies the [longitude, latitude, and roll] angles by which to rotate the reference globe
+        //.rotate([-2, 0, 0])     //specifies the [longitude, latitude, and roll] angles by which to rotate the reference globe
 
-        .parallels([55, 65])    // specifies the two standard parallels of a conic projection. If the two array values are the same,
+        //.parallels([55, 65])    // specifies the two standard parallels of a conic projection. If the two array values are the same,
                                 //the projection is a tangent case (the plane intersects the globe at one line of latitude);
                                 //if they are different, it is a secant case (the plane intersects the globe at two lines of latitude, slicing through it).
 
@@ -32,6 +32,24 @@ function setMap(){
 
     var path = d3.geoPath()
         .projection(projection);
+
+    //create graticule generator
+    var graticule = d3.geoGraticule()
+        .step([5, 5]); //place graticule lines every 5 degrees of longitude and latitude
+
+    //create graticule background
+    var gratBackground = map.append("path")
+        .datum(graticule.outline()) //bind graticule background
+        .attr("class", "gratBackground") //assign class for styling
+        .attr("d", path) //project graticule
+
+    //create graticule lines
+    var gratLines = map.selectAll(".gratLines") //select graticule elements that will be created
+        .data(graticule.lines()) //bind graticule lines to each element to be created
+        .enter() //create an element for each datum
+        .append("path") //append each element to the svg as a path element
+        .attr("class", "gratLines") //assign class for styling
+        .attr("d", path); //project graticule lines
 
     //use Promise.all to parallelize asynchronous data loading
     //var promises = [d3.json("data/BizInUSATopo.json")];
@@ -49,7 +67,7 @@ function setMap(){
         //examine the results
         console.log(usaStates);
 
-        //add France regions to map
+        //add states to map
         var regions = map.selectAll(".states")
             .data(usaStates)
             .enter()
