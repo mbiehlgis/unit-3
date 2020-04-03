@@ -1,8 +1,8 @@
 (function(){
 
     //pseudo-global variables
-    // var attrArray = ["varA", "varB", "varC", "varD", "varE"]; //list of attributes
-    // var expressed = attrArray[0]; //initial attribute
+    var attrArray = ["SBCount", "SBE_Count", "P_of_Total", "P_of_State", "MinoritySB", "F500Count"]; //list of attributes
+    var expressed = attrArray[2]; //initial attribute
 
 
     //begin script when window loads
@@ -70,10 +70,10 @@
             //     .attr("class", "backgroundCMC")
             //     .attr("d", path);
 
-            var colorScale = makeColorScale(usa)
+            var colorScale = makeColorScale(usaStates)
 
             //add enumeration units to the map
-            setEnumerationUnits(usaStates, map, path);
+            setEnumerationUnits(usaStates, map, path, colorScale);
 
         };
 
@@ -117,8 +117,8 @@
 
         //build two-value array of minimum and maximum expressed attribute values
         var minmax = [
-            d3.min(data, function(d) { return parseFloat(d[expressed]); }),
-            d3.max(data, function(d) { return parseFloat(d[expressed]); })
+            d3.min(data, function(d) { return parseFloat(d.properties[expressed]); }),
+            d3.max(data, function(d) { return parseFloat(d.properties[expressed]); })
         ];
         //assign two-value array as scale domain
         colorScale.domain(minmax);
@@ -137,7 +137,8 @@
             })
             .attr("d", path)
             .style("fill", function(d){
-                return colorScale(d.properties);
+                console.log(colorScale);
+                return colorScale(d.properties[expressed]);
             });
         };
 

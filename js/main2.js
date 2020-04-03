@@ -62,8 +62,10 @@ function setMap(){
         //join csv data to GeoJSON enumeration units
         franceRegions = joinData(franceRegions, csvData);
 
+        var colorScale = makeColorScale(csvData)
+
         //add enumeration units to the map
-        setEnumerationUnits(franceRegions, map, path);
+        setEnumerationUnits(franceRegions, map, path, colorScale);
 
       };
 
@@ -139,11 +141,12 @@ function makeColorScale(data){
         d3.min(data, function(d) { return parseFloat(d[expressed]); }),
         d3.max(data, function(d) { return parseFloat(d[expressed]); })
     ];
+
     //assign two-value array as scale domain
     colorScale.domain(minmax);
+    console.log(colorScale);
 
     return colorScale;
-    console.log(colorScale);
 };
 
 function setEnumerationUnits(franceRegions, map, path, colorScale){
