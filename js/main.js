@@ -101,6 +101,31 @@
 
         };
 
+    //Example 1.4 line 11...function to create color scale generator
+    function makeColorScale(data){
+        var colorClasses = [
+            "#D4B9DA",
+            "#C994C7",
+            "#DF65B0",
+            "#DD1C77",
+            "#980043"
+        ];
+
+        //create color scale generator
+        var colorScale = d3.scaleQuantile()
+            .range(colorClasses);
+
+        //build two-value array of minimum and maximum expressed attribute values
+        var minmax = [
+            d3.min(data, function(d) { return parseFloat(d[expressed]); }),
+            d3.max(data, function(d) { return parseFloat(d[expressed]); })
+        ];
+        //assign two-value array as scale domain
+        colorScale.domain(minmax);
+
+        return colorScale;
+    };
+
     function setEnumerationUnits(usaStates, map, path, colorScale){
         //add states to map
         var states = map.selectAll(".states")
@@ -115,31 +140,5 @@
                 return colorScale(d.properties);
             });
         };
-
-        //Example 1.4 line 11...function to create color scale generator
-      function makeColorScale(data){
-          var colorClasses = [
-              "#D4B9DA",
-              "#C994C7",
-              "#DF65B0",
-              "#DD1C77",
-              "#980043"
-          ];
-
-          //create color scale generator
-          var colorScale = d3.scaleQuantile()
-              .range(colorClasses);
-
-          //build two-value array of minimum and maximum expressed attribute values
-          var minmax = [
-              d3.min(data, function(d) { return parseFloat(d[expressed]); }),
-              d3.max(data, function(d) { return parseFloat(d[expressed]); })
-          ];
-          //assign two-value array as scale domain
-          colorScale.domain(minmax);
-
-          return colorScale;
-      };
-
 
     })();

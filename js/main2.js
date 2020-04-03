@@ -4,8 +4,8 @@
 window.onload = setMap();
 
 //pseudo-global variables
-//var attrArray = ["varA", "varB", "varC", "varD", "varE"]; //list of attributes
-//var expressed = attrArray[0]; //initial attribute
+var attrArray = ["varA", "varB", "varC", "varD", "varE"]; //list of attributes
+var expressed = attrArray[0]; //initial attribute
 
 //set up choropleth map
 function setMap(){
@@ -143,9 +143,10 @@ function makeColorScale(data){
     colorScale.domain(minmax);
 
     return colorScale;
+    console.log(colorScale);
 };
 
-function setEnumerationUnits(franceRegions, map, path){
+function setEnumerationUnits(franceRegions, map, path, colorScale){
     //add France regions to map
     var regions = map.selectAll(".regions")
         .data(franceRegions)
