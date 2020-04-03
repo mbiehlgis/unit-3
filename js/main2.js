@@ -59,6 +59,9 @@ function setMap(){
         //examine the results
         console.log(franceRegions);
 
+        //join csv data to GeoJSON enumeration units
+        franceRegions = joinData(franceRegions, csvData);
+
         //add enumeration units to the map
         setEnumerationUnits(franceRegions, map, path);
 
@@ -114,7 +117,7 @@ function joinData(franceRegions, csvData){
             };
         };
     };
-
+    return franceRegions;
   };
 
 //Example 1.4 line 11...function to create color scale generator
