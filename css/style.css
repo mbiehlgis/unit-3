@@ -5,7 +5,13 @@
 }
 
 .states {
-    fill: black;
+    fill: #25383C;
+    stroke: #7DFDFE !important;
+    stroke-width: 1.5px;
+}
+
+.backgroundCMC {
+    fill: gray;
     stroke: #7DFDFE !important;
     stroke-width: 2px;
 }
