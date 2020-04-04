@@ -1,3 +1,95 @@
+            /* HEADER */
+.header {
+    background: white;
+    height: 10vh;
+    top: 0px;
+}
+
+#headerText {
+    padding-top: 10px;
+}
+
+
+          /* BODY */
+body {
+  overflow-x: scroll;
+}
+
+.mainContainer {
+    padding-top: 1vh;
+    flex: 100%;
+    height: 113vh;
+    /* max-width: 25%; */
+    width: 25%;
+    float: left;
+    /* overflow: hidden; */
+    position: relative;
+    display: inline-block;
+}
+
+.BodyContainer {
+    position: relative;
+    float: left;
+    max-width: 100vw;
+    width: 100%;
+    height: 100%;
+    flex: 100%;
+    border: 3px solid white;
+    background-color: white;
+    overflow-y: scroll;
+    margin-right: 0;
+    scrollbar-width: .3;
+    -ms-overflow-style: none;
+    display: inline-block;
+}
+
+
+          /* MAP AND CHART */
+/* .body {
+  position: relative;
+  float: right;
+  flex: 66%;
+  max-width: 40%;
+  overflow: hidden;
+} */
+
+/* .mapAndChart {
+    width: 500vw;
+} */
+
+.map {
+    border: medium solid white;
+    margin: 10px 0 0 20px;
+    background-color: white;
+    position: relative;
+    float: right;
+    flex: 75%;
+    padding-right: 10px;
+    bottom: 3px;
+    overflow-x: scroll;
+}
+
+.chart {
+    background-color: white;
+    border: medium solid white;
+    float: right;
+    margin: 10px 0 0 0;
+    bottom: 5px;
+    padding-right: 10px;
+    overflow-x: scroll;
+}
+
+.numbers {
+    fill: white;
+    font-family: sans-serif;
+}
+
+.chartTitle {
+    font-family: sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
 .regions {
     fill: black;
     stroke: #7DFDFE !important;
@@ -6,8 +98,9 @@
 
 .states {
     fill: #25383C;
-    stroke: #7DFDFE !important;
-    stroke-width: 1.5px;
+    stroke: white !important;
+    stroke-width: 1.3px;
+    stroke-linecap: round;
 }
 
 .backgroundCMC {
@@ -25,3 +118,43 @@
 .gratBackground {
     fill: black;
 }
+
+/* ------ Testing Responsive Mobile Design ------ */
+
+/* Mobile */
+/* @media screen and (min-width: 768px) {
+  .map {
+      width: 50%
+  }
+  .chart {
+      width: 50%
+  } */
+
+/* Tablets */
+/* @media screen and (min-width: 992px) {
+  .map {
+      width: 50%;
+      overflow-x:scroll;
+      padding-right: 75px;
+  }
+  .chart {
+      width: 50%;
+      overflow-x:scroll;
+      padding-right: 75px
+  } */
+
+/* Laptop */
+/* @media screen and (min-width: 1200px) {
+  .map {
+      width: 65%;
+      overflow-x:scroll;
+      padding-right: 100px;
+  }
+  .chart {
+      width: 65%;
+      overflow-x:scroll;
+      padding-right: 100px;
+  } */
+
+
+/* ------ End Test ------ */

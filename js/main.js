@@ -1,3 +1,10 @@
+// TO  DO
+// 1. SOME DATA'S HEIGHT TAKING UP ENTIRE CHART, MAYBE TOO HIGH
+// 2. CHART TITLE IS INDEXING THE TEXT CHARACTER, NOT THE ATTRIBTUTE NAME
+// 3. CANT SORT CHART DATA BY HEIGHT FOR SOME REASON
+// 4. RENAME CSV ATTRIBUTES TO READABLE NAMES
+// 5. LABEL EACH BAR WITH STATE ABBREVIATIONS
+
 (function(){
 
     //pseudo-global variables
@@ -12,8 +19,8 @@
     function setMap(){
 
         //map frame dimensions
-        var width = 960,
-            height = 500;
+        var width = window.innerWidth * 0.7,
+            height = 350;
 
         //create new svg container for the map
         var map = d3.select("body")
@@ -33,7 +40,7 @@
                                     //the projection is a tangent case (the plane intersects the globe at one line of latitude);
                                     //if they are different, it is a secant case (the plane intersects the globe at two lines of latitude, slicing through it).
 
-            .scale(1070)            //is a factor by which distances between points are multiplied, increasing or decreasing the scale of the map.
+            .scale(700)            //is a factor by which distances between points are multiplied, increasing or decreasing the scale of the map.
 
             .translate([width / 2, height / 2]);
 
@@ -55,7 +62,7 @@
             //console.log(otherCountries)
 
             //place graticule on the map
-            setGraticule(map, path);
+            //setGraticule(map, path);
 
             //translate usa TopoJSON
             //var backgroundCountries = topojson.feature(otherCountries, otherCountries.objects.CanadaMexicoCuba),
@@ -74,6 +81,9 @@
 
             //add enumeration units to the map
             setEnumerationUnits(usaStates, map, path, colorScale);
+
+            //add coordinated visualization to the map
+            setChart(usaStates, colorScale);
 
         };
 
@@ -137,9 +147,64 @@
             })
             .attr("d", path)
             .style("fill", function(d){
-                console.log(colorScale);
-                return colorScale(d.properties[expressed]);
-            });
-        };
+                var value = d.properties[expressed];
+                if(value) {
+                	return colorScale(d.properties[expressed]);
+                } else {
+                	return "#ccc";
+                }
+        });
+    };
 
-    })();
+    //function to create coordinated bar chart
+    function setChart(usa, colorScale){
+        //chart frame dimensions
+        var chartWidth = window.innerWidth * .7,
+            chartHeight = 400;
+
+        //create a second svg element to hold the bar chart
+        var chart = d3.select("body")
+            .append("svg")
+            .attr("width", chartWidth)
+            .attr("height", chartHeight)
+            .attr("class", "chart");
+
+        var yScale = d3.scaleLinear()
+            .range([0, chartHeight])
+            .domain([0, 105]);
+
+        //set bars for each state
+        var bars = chart.selectAll(".bars")
+            .data(usa)
+            .enter()
+            .append("rect")
+            .sort(function(b, a){
+                return a[expressed] - b[expressed] //NOTHING HAPPENING WITH THIS
+             })
+            .attr("class", function(d){
+                return "bars " + d.properties.name;
+             })
+            .attr("width", chartWidth / usa.length - 1)
+            .attr("x", function(d, i){
+                return i * (chartWidth / usa.length);
+             })
+             .attr("height", function(d){
+                return yScale(parseFloat(d.properties[expressed]));
+             })
+             .attr("y", function(d){
+                return chartHeight - yScale(parseFloat(d.properties[expressed]));
+             })
+             .style("fill", function(d){
+                return colorScale(d.properties[expressed]);
+             });
+
+         //below Example 2.8...create a text element for the chart title
+         var chartTitle = chart.append("text")
+             .attr("x", 20)
+             .attr("y", 40)
+             .attr("class", "chartTitle")
+             .text("Number of Variable " + expressed[5] + " in each region");
+                                          // ERROR, IS TYPING OUT THE TEXT INDEX, NOT ITEM
+    };
+
+})();

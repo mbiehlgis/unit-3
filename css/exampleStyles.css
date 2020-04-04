@@ -1,0 +1,49 @@
+/* HEADER */
+.header {
+  background: white;
+  height: 10vh;
+  top: 0px;
+}
+
+#headerText {
+  padding-top: 10px;
+}
+
+.map {
+  border: medium solid #999;
+  margin: 10px 0 0 20px;
+}
+
+.chart {
+  background-color: rgba(128,128,128,.2);
+  border: medium solid #999;
+  float: right;
+  margin: 10px 20px 0 0;
+}
+
+.numbers {
+  fill: white;
+  font-family: sans-serif;
+}
+
+.chartTitle {
+  font-family: sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.regions {
+  fill: black;
+  stroke: #7DFDFE !important;
+  stroke-width: 2px;
+}
+
+.gratLines {
+  fill: none;
+  stroke: #bc13fe;
+  stroke-width: 1px;
+}
+
+.gratBackground {
+  fill: black;
+}
