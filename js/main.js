@@ -11,7 +11,7 @@
 
     //pseudo-global variables
     var attrArray = ["SBCount", "SBE_Count", "P_of_Total", "P_of_State", "MinoritySB", "F500Count"]; //list of attributes
-    var expressed = attrArray[2]; //initial attribute
+    var expressed = attrArray[0]; //initial attribute
 
 
     //begin script when window loads
@@ -171,9 +171,15 @@
             .attr("height", chartHeight)
             .attr("class", "chart");
 
-        var yScale = d3.scaleLinear()
-            .range([0, chartHeight])
-            .domain([0, 105]);
+        var yScale = d3.scaleLog()
+                  .range([0, chartHeight])
+                  .domain([d3.min(usa, function (d) {
+                      return parseFloat(d.properties[expressed])
+                  }),
+                  d3.max(usa, function (d) {
+                      return parseFloat(d.properties[expressed])*4;
+                  })])
+                  .base(5);
 
         //set bars for each state
         var bars = chart.selectAll(".bars")
@@ -181,7 +187,7 @@
             .enter()
             .append("rect")
             .sort(function(b, a){
-                return a[expressed] - b[expressed] //NOTHING HAPPENING WITH THIS
+                return a.properties[expressed] - b.properties[expressed] //NOTHING HAPPENING WITH THIS
              })
             .attr("class", function(d){
                 return "bars " + d.properties.name;
@@ -205,8 +211,7 @@
              .attr("x", 20)
              .attr("y", 40)
              .attr("class", "chartTitle")
-             .text("Number of Variable " + expressed[5] + " in each region");
-                                          // ERROR, IS TYPING OUT THE TEXT INDEX, NOT ITEM
+             .text("Number of Variable " + expressed + " in each region");
     };
 
 })();
