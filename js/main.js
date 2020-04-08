@@ -1,17 +1,16 @@
 // TO  DO
-// 1. SOME DATA'S HEIGHT TAKING UP ENTIRE CHART, MAYBE TOO HIGH
-// 2. CHART TITLE IS INDEXING THE TEXT CHARACTER, NOT THE ATTRIBTUTE NAME
-// 3. CANT SORT CHART DATA BY HEIGHT FOR SOME REASON
-// 4. RENAME CSV ATTRIBUTES TO READABLE NAMES
-// 5. LABEL EACH BAR WITH STATE ABBREVIATIONS
-// 6. CSS WONT ALLOW FOR ANY OVERLAP WHATSOEVER
-// 7. ADD LAKES
+// 1. Y-Axis Scale is Inverted for some reason
+// 2. Chart is not within frame created for it
+// 3. Add labels for each bar with state abbreviations
+// 4. LABEL EACH BAR WITH STATE ABBREVIATIONS
+// 5. CSS WONT ALLOW FOR ANY OVERLAP WHATSOEVER
+// 6. ADD LAKES
 
 (function(){
 
     //pseudo-global variables
-    var attrArray = ["SBCount", "SBE_Count", "P_of_Total", "P_of_State", "MinoritySB", "F500Count"]; //list of attributes
-    var expressed = attrArray[0]; //initial attribute
+    var attrArray = ["Number_of_Small_Businesses_Per_State", "Number_of_Small_Business_Employees_Per_State", "%_of_Companies_that_are_Small_Businesses", "%_of_State_Workforce_Working_for_Small_Businesses", "Number_of_Minority_Owned_Businesses", "Number_of_Fortune_500_Company_Headquarters"]; //list of attributes
+    var expressed = attrArray[3]; //initial attribute
 
 
     //begin script when window loads
@@ -162,7 +161,14 @@
     function setChart(usa, colorScale){
         //chart frame dimensions
         var chartWidth = window.innerWidth * .7,
-            chartHeight = 400;
+            chartHeight = 400,
+            leftPadding = 75,
+            rightPadding = 2,
+            topBottomPadding = 5,
+            chartInnerWidth = chartWidth,
+            chartInnerHeight = chartHeight - topBottomPadding * 1.2,
+            translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
+
 
         //create a second svg element to hold the bar chart
         var chart = d3.select("body")
@@ -170,6 +176,14 @@
             .attr("width", chartWidth)
             .attr("height", chartHeight)
             .attr("class", "chart");
+
+        //create a rectangle for chart background fill
+        var chartBackground = chart.append("rect")
+            .attr("class", "chartBackground")
+            .attr("width", chartInnerWidth)
+            .attr("height", chartInnerHeight)
+            .attr("transform", translate);
+
 
         var yScale = d3.scaleLog()
                   .range([0, chartHeight])
@@ -211,7 +225,24 @@
              .attr("x", 20)
              .attr("y", 40)
              .attr("class", "chartTitle")
-             .text("Number of Variable " + expressed + " in each region");
+             .text(expressed);
+
+        //create vertical axis generator
+        var yAxis = d3.axisLeft()
+            .scale(yScale);
+
+        //place axis
+        var axis = chart.append("g")
+            .attr("class", "axis")
+            .attr("transform", translate)
+            .call(yAxis);
+
+        //create frame for chart border
+        var chartFrame = chart.append("rect")
+            .attr("class", "chartFrame")
+            .attr("width", chartInnerWidth)
+            .attr("height", chartInnerHeight)
+            .attr("transform", translate);
     };
 
 })();
