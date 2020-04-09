@@ -20,8 +20,9 @@
     function setMap(){
 
         //map frame dimensions
-        var width = window.innerWidth * 0.7,
-            height = 350;
+        //var width = window.innerWidth * 0.7, --> USE IF I WANT MAP AND CHART STACKED
+        var width = 600,
+            height = 500;
 
         //create new svg container for the map
         var map = d3.select("body")
@@ -53,12 +54,13 @@
         var promises = [];
         //promises.push(d3.csv("data/BusinessesByState.csv"));
         promises.push(d3.json("data/BizInUSATopo.json")); //load choropleth spatial data
+        promises.push(d3.json("data/GreatLakesTopo.json"));
         Promise.all(promises).then(callback);
 
         function callback(data){
-
             //otherCountries = data[0];
             usa = data[0];
+            bigLakes = data[1];
             console.log(usa);
             //console.log(otherCountries)
 
@@ -68,10 +70,15 @@
             //translate usa TopoJSON
             //var backgroundCountries = topojson.feature(otherCountries, otherCountries.objects.CanadaMexicoCuba),
             var usaStates = topojson.feature(usa, usa.objects.USAwithBusinesses).features;
+            var greatLakes = topojson.feature(bigLakes, bigLakes.objects.GreatLakes);
+            console.log(greatLakes);
 
-            //examine the results
-            console.log(usaStates);
-            //console.log(backgroundCountries);
+            var lakes = map.append("path")
+                .datum(greatLakes)
+                .attr("class", "lakes")
+                .attr("d", path);
+
+            console.log(lakes);
 
             // var backgroundCMC = map.append("path")
             //     .datum(backgroundCountries)
@@ -85,6 +92,8 @@
 
             //add coordinated visualization to the map
             setChart(usaStates, colorScale);
+
+            createDropdown(usa);
 
         };
 
@@ -115,11 +124,11 @@
     //Example 1.4 line 11...function to create color scale generator
     function makeColorScale(data){
         var colorClasses = [
-            "#D4B9DA",
-            "#C994C7",
-            "#DF65B0",
-            "#DD1C77",
-            "#980043"
+            "#EDF8FB",
+            "#b2e2e2",
+            "#66c2a4",
+            "#2ca25f",
+            "#006d2c"
         ];
 
         //create color scale generator
@@ -160,9 +169,9 @@
     //function to create coordinated bar chart
     function setChart(usa, colorScale){
         //chart frame dimensions
-        var chartWidth = window.innerWidth * .7,
-            chartHeight = 400,
-            leftPadding = 75,
+        var chartWidth = 600,
+            chartHeight = 500,
+            leftPadding = 30,
             rightPadding = 2,
             topBottomPadding = 5,
             chartInnerWidth = chartWidth,
@@ -186,14 +195,14 @@
 
 
         var yScale = d3.scaleLog()
-                  .range([0, chartHeight])
-                  .domain([d3.min(usa, function (d) {
-                      return parseFloat(d.properties[expressed])
-                  }),
-                  d3.max(usa, function (d) {
-                      return parseFloat(d.properties[expressed])*4;
-                  })])
-                  .base(5);
+            .range([0, chartHeight])
+            .domain([d3.min(usa, function (d) {
+                return parseFloat(d.properties[expressed])
+            }),
+            d3.max(usa, function (d) {
+                return parseFloat(d.properties[expressed])*4;
+            })])
+            .base(5);
 
         //set bars for each state
         var bars = chart.selectAll(".bars")
@@ -221,11 +230,11 @@
              });
 
          //below Example 2.8...create a text element for the chart title
-         var chartTitle = chart.append("text")
-             .attr("x", 20)
-             .attr("y", 40)
-             .attr("class", "chartTitle")
-             .text(expressed);
+         // var chartTitle = chart.append("text")
+         //     .attr("x", 20)
+         //     .attr("y", 40)
+         //     .attr("class", "chartTitle")
+         //     .text(expressed);
 
         //create vertical axis generator
         var yAxis = d3.axisLeft()
@@ -237,12 +246,35 @@
             .attr("transform", translate)
             .call(yAxis);
 
-        //create frame for chart border
-        var chartFrame = chart.append("rect")
-            .attr("class", "chartFrame")
-            .attr("width", chartInnerWidth)
-            .attr("height", chartInnerHeight)
-            .attr("transform", translate);
+        // //create frame for chart border
+        // var chartFrame = chart.append("rect")
+        //     .attr("class", "chartFrame")
+        //     .attr("width", chartInnerWidth)
+        //     .attr("height", chartInnerHeight)
+        //     .attr("transform", translate);
+    };
+
+    //function to create a dropdown menu for attribute selection
+    function createDropdown(){
+        //add select element
+        var dropdown = d3.select("body")
+            .append("select")
+            .attr("class", "dropdown");
+
+        //add initial option
+        var titleOption = dropdown.append("option")
+            .attr("class", "titleOption")
+            .attr("disabled", "true")
+            .text("Select Attribute");
+
+        //add attribute name options
+        var attrOptions = dropdown.selectAll("attrOptions")
+            .data(attrArray)
+            .enter()
+            .append("option")
+            .attr("value", function(d){ return d })
+            .text(function(d){ return d })
+            .style("font-family", "Quicksand");
     };
 
 })();
