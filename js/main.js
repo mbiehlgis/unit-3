@@ -2,9 +2,8 @@
 // 1. Y-Axis Scale is Inverted for some reason
 // 2. Chart is not within frame created for it
 // 3. Add labels for each bar with state abbreviations
-// 4. LABEL EACH BAR WITH STATE ABBREVIATIONS
-// 5. CSS WONT ALLOW FOR ANY OVERLAP WHATSOEVER
-// 6. ADD LAKES
+// 4. SVG for Chart cannot be moved with html
+// 5. Lakes are behind States
 
 (function(){
 
@@ -193,7 +192,6 @@
             .attr("height", chartInnerHeight)
             .attr("transform", translate);
 
-
         var yScale = d3.scaleLog()
             .range([0, chartHeight])
             .domain([d3.min(usa, function (d) {
@@ -259,7 +257,10 @@
         //add select element
         var dropdown = d3.select("body")
             .append("select")
-            .attr("class", "dropdown");
+            .attr("class", "dropdown")
+            .on("change", function(){
+                changeAttribute(this.value, usa)
+            });
 
         //add initial option
         var titleOption = dropdown.append("option")
@@ -276,5 +277,52 @@
             .text(function(d){ return d })
             .style("font-family", "Quicksand");
     };
+
+    //dropdown change listener handler
+    function changeAttribute(attribute, usa){
+        //change the expressed attribute
+        expressed = attribute;
+        console.log(expressed);
+
+        //recreate the color scale
+        var colorScale = makeColorScale(usa);
+
+        //recolor enumeration units
+        var states = d3.selectAll(".states")
+            .style("fill", function(d){
+                var value = d.properties[expressed];
+                if(value) {
+                	return colorScale(value);
+                } else {
+                	return "#ccc";
+                }
+    });
+
+        //re-sort, resize, and recolor bars
+        var bars = d3.selectAll(".bar")
+            //re-sort bars
+            .sort(function(a, b){
+                return b.properties[expressed] - a.properties[expressed];
+            })
+            .attr("x", function(d, i){
+                return i * (chartInnerWidth / usa.length) + leftPadding;
+            })
+            //resize bars
+            .attr("height", function(d, i){
+                return 463 - yScale(parseFloat(d.properties[expressed]));
+            })
+            .attr("y", function(d, i){
+                return yScale(parseFloat(d.properties[expressed])) + topBottomPadding;
+            })
+            //recolor bars
+            .style("fill", function(d){
+                var value = d.properties[expressed];
+                if(value) {
+                	return colorScale(value);
+                } else {
+                	return "#ccc";
+                }
+    });
+};
 
 })();
