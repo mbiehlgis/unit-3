@@ -8,8 +8,8 @@
 (function(){
 
     //pseudo-global variables
-    var attrArray = ["Number_of_Small_Businesses_Per_State", "Number_of_Small_Business_Employees_Per_State", "%_of_Companies_that_are_Small_Businesses", "%_of_State_Workforce_Working_for_Small_Businesses", "Number_of_Minority_Owned_Businesses", "Number_of_Fortune_500_Company_Headquarters"]; //list of attributes
-    var expressed = attrArray[3]; //initial attribute
+    var attrArray = ["Number of Small Businesses Per State", "Number of Small Business Employees Per State", "% of Companies that are Small Businesses", "% of State Workforce Working for Small Businesses", "Number of Minority Owned Businesses", "Number of Fortune 500 Company Headquarters"]; //list of attributes
+    var expressed = attrArray[0]; //initial attribute
 
 
     //begin script when window loads
@@ -77,8 +77,6 @@
                 .attr("class", "lakes")
                 .attr("d", path);
 
-            console.log(lakes);
-
             // var backgroundCMC = map.append("path")
             //     .datum(backgroundCountries)
             //     .attr("class", "backgroundCMC")
@@ -92,7 +90,7 @@
             //add coordinated visualization to the map
             setChart(usaStates, colorScale);
 
-            createDropdown(usa);
+            createDropdown(usaStates);
 
         };
 
@@ -170,10 +168,10 @@
         //chart frame dimensions
         var chartWidth = 600,
             chartHeight = 500,
-            leftPadding = 30,
+            leftPadding = 60, //CONTROLS AXIS PLACEMENT
             rightPadding = 2,
             topBottomPadding = 5,
-            chartInnerWidth = chartWidth,
+            chartInnerWidth = chartWidth - leftPadding - rightPadding,
             chartInnerHeight = chartHeight - topBottomPadding * 1.2,
             translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
 
@@ -198,9 +196,13 @@
                 return parseFloat(d.properties[expressed])
             }),
             d3.max(usa, function (d) {
-                return parseFloat(d.properties[expressed])*4;
+                return parseFloat(d.properties[expressed])*1.03;
             })])
             .base(5);
+
+        // var yScale = d3.scaleLinear()
+        //     .range([0, chartHeight])
+        //     .domain([0, 100]);
 
         //set bars for each state
         var bars = chart.selectAll(".bars")
@@ -279,18 +281,19 @@
     };
 
     //dropdown change listener handler
-    function changeAttribute(attribute, usa){
+    function changeAttribute(attribute, usaStates){
         //change the expressed attribute
         expressed = attribute;
         console.log(expressed);
 
         //recreate the color scale
-        var colorScale = makeColorScale(usa);
+        var colorScale = makeColorScale(usaStates);
 
         //recolor enumeration units
         var states = d3.selectAll(".states")
             .style("fill", function(d){
                 var value = d.properties[expressed];
+                console.log(value);
                 if(value) {
                 	return colorScale(value);
                 } else {
@@ -301,8 +304,8 @@
         //re-sort, resize, and recolor bars
         var bars = d3.selectAll(".bar")
             //re-sort bars
-            .sort(function(a, b){
-                return b.properties[expressed] - a.properties[expressed];
+            .sort(function(b, a){
+                return a.properties[expressed] - b.properties[expressed];
             })
             .attr("x", function(d, i){
                 return i * (chartInnerWidth / usa.length) + leftPadding;

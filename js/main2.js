@@ -294,6 +294,7 @@ function changeAttribute(attribute, csvData){
     var regions = d3.selectAll(".regions")
         .style("fill", function(d){
             var value = d.properties[expressed];
+            console.log(value);
             if(value) {
             	return colorScale(value);
             } else {

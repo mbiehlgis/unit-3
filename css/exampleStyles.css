@@ -1,12 +1,14 @@
 /* HEADER */
 .header {
-  background: white;
+  background: black;
   height: 10vh;
   top: 0px;
 }
 
 #headerText {
   padding-top: 10px;
+  font-family: "Quicksand";
+  color: #fff;
 }
 
 .map {
