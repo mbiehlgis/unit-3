@@ -1,5 +1,5 @@
 // TO  DO
-// 1. Y-Axis Scale is Inverted for some reason
+// 1. Y-Axis Scale no longer inverted, but doesnt change when switching attribuutes
 // 2. Chart is not within frame created for it
 // 3. Add labels for each bar with state abbreviations
 // 4. SVG for Chart cannot be moved with html
@@ -11,6 +11,17 @@
     var attrArray = ["Number of Small Businesses Per State", "Number of Small Business Employees Per State", "% of Companies that are Small Businesses", "% of State Workforce Working for Small Businesses", "Number of Minority Owned Businesses", "Number of Fortune 500 Company Headquarters"]; //list of attributes
     var expressed = attrArray[0]; //initial attribute
 
+    //chart frame dimensions
+    var chartWidth = 600,
+        chartHeight = 500,
+        leftPadding = 60, //CONTROLS AXIS PLACEMENT
+        rightPadding = 2,
+        topBottomPadding = 5,
+        chartInnerWidth = chartWidth - leftPadding - rightPadding,
+        chartInnerHeight = chartHeight - topBottomPadding * 1.2,
+        translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
+
+    var yScale;
 
     //begin script when window loads
     window.onload = setMap();
@@ -127,6 +138,7 @@
             "#2ca25f",
             "#006d2c"
         ];
+      console.log(data);
 
         //create color scale generator
         var colorScale = d3.scaleQuantile()
@@ -165,16 +177,6 @@
 
     //function to create coordinated bar chart
     function setChart(usa, colorScale){
-        //chart frame dimensions
-        var chartWidth = 600,
-            chartHeight = 500,
-            leftPadding = 60, //CONTROLS AXIS PLACEMENT
-            rightPadding = 2,
-            topBottomPadding = 5,
-            chartInnerWidth = chartWidth - leftPadding - rightPadding,
-            chartInnerHeight = chartHeight - topBottomPadding * 1.2,
-            translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
-
 
         //create a second svg element to hold the bar chart
         var chart = d3.select("body")
@@ -190,8 +192,21 @@
             .attr("height", chartInnerHeight)
             .attr("transform", translate);
 
-        var yScale = d3.scaleLog()
+        //SCALE FOR BARS
+        yScale = d3.scaleLog()
             .range([0, chartHeight])
+            .domain([d3.min(usa, function (d) {
+                return parseFloat(d.properties[expressed])
+            }),
+            d3.max(usa, function (d) {
+                return parseFloat(d.properties[expressed])*1.03;
+            })])
+            .base(5);
+
+
+        // SCALE SPECIFICALLY FOR AXIS
+        var axisScale = d3.scaleLog()
+            .range([chartHeight, 0])
             .domain([d3.min(usa, function (d) {
                 return parseFloat(d.properties[expressed])
             }),
@@ -202,14 +217,20 @@
 
         // var yScale = d3.scaleLinear()
         //     .range([0, chartHeight])
-        //     .domain([0, 100]);
+        //     .domain([d3.min(usa, function (d) {
+        //         return parseFloat(d.properties[expressed])
+        //     }),
+        //     d3.max(usa, function (d) {
+        //         return parseFloat(d.properties[expressed])*1.03;
+        //     })])
+            //.base(5);
 
         //set bars for each state
         var bars = chart.selectAll(".bars")
             .data(usa)
             .enter()
             .append("rect")
-            .sort(function(b, a){
+            .sort(function(a, b){
                 return a.properties[expressed] - b.properties[expressed] //NOTHING HAPPENING WITH THIS
              })
             .attr("class", function(d){
@@ -238,7 +259,7 @@
 
         //create vertical axis generator
         var yAxis = d3.axisLeft()
-            .scale(yScale);
+            .scale(axisScale);
 
         //place axis
         var axis = chart.append("g")
@@ -252,16 +273,18 @@
         //     .attr("width", chartInnerWidth)
         //     .attr("height", chartInnerHeight)
         //     .attr("transform", translate);
+
+        //updateChart(bars, n, colorScale);
     };
 
     //function to create a dropdown menu for attribute selection
-    function createDropdown(){
+    function createDropdown(data){
         //add select element
         var dropdown = d3.select("body")
             .append("select")
             .attr("class", "dropdown")
             .on("change", function(){
-                changeAttribute(this.value, usa)
+                changeAttribute(this.value, data)
             });
 
         //add initial option
@@ -302,17 +325,17 @@
     });
 
         //re-sort, resize, and recolor bars
-        var bars = d3.selectAll(".bar")
+        var bars = d3.selectAll(".bars")
             //re-sort bars
             .sort(function(b, a){
                 return a.properties[expressed] - b.properties[expressed];
             })
             .attr("x", function(d, i){
-                return i * (chartInnerWidth / usa.length) + leftPadding;
+                return i * (chartInnerWidth / usaStates.length) + leftPadding;
             })
             //resize bars
             .attr("height", function(d, i){
-                return 463 - yScale(parseFloat(d.properties[expressed]));
+                return chartHeight - yScale(parseFloat(d.properties[expressed]));
             })
             .attr("y", function(d, i){
                 return yScale(parseFloat(d.properties[expressed])) + topBottomPadding;
@@ -325,7 +348,44 @@
                 } else {
                 	return "#ccc";
                 }
-    });
-};
+        });
+
+        //updateChart(bars, n, colorScale);
+    };
+
+    //function to position, size, and color bars in chart
+    function updateChart(bars, n, colorScale){
+        //position bars
+
+        yScale = d3.scaleLog()
+            .range([0, chartHeight])
+            .domain([d3.min(usa, function (d) {
+                return parseFloat(d.properties[expressed])
+            }),
+            d3.max(usa, function (d) {
+                return parseFloat(d.properties[expressed])*1.03;
+            })])
+            .base(5);
+
+        bars.attr("x", function(d, i){
+                return i * (chartInnerWidth / n) + leftPadding;
+            })
+            //size/resize bars
+            .attr("height", function(d, i){
+                return chartHeight - yScale(parseFloat(d.properties[expressed]));
+            })
+            .attr("y", function(d, i){
+                return yScale(parseFloat(d.properties[expressed])) + topBottomPadding;
+            })
+            //color/recolor bars
+            .style("fill", function(d){
+                var value = d.properties[expressed];
+                if(value) {
+                    return colorScale(value);
+                } else {
+                    return "#ccc";
+                }
+        });
+    };
 
 })();
