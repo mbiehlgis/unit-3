@@ -1,4 +1,4 @@
-/* HEADER */
+          /* HEADER */
 .header {
 background: black;
 height: 10vh;
@@ -12,7 +12,7 @@ font-family: "Quicksand"
 }
 
 
-/* BODY */
+          /* BODY */
 body {
 overflow-x: scroll;
 }
@@ -53,7 +53,7 @@ color: white;
 }
 
 
-/* MAP AND CHART */
+          /* MAP AND CHART */
 /* .body {
 position: relative;
 float: right;
@@ -66,7 +66,8 @@ overflow: hidden;
 width: 500vw;
 } */
 
-/* M A P */
+          /* M A P */
+
 .map {
 border: medium solid #fff;
 margin: 10px 0 0 20px;
@@ -91,7 +92,9 @@ stroke-linecap: round;
 }
 
 .lakes {
-fill: #2B547E;
+fill: #6baed6;
+stroke: gray;
+stroke-width: .5px;
 }
 
 .backgroundCMC {
@@ -110,7 +113,8 @@ stroke-width: 1px;
 fill: black;
 }
 
-/* C H A R T */
+          /* C H A R T */
+
 .chart {
 background-color: black;
 border: medium solid #fff;
@@ -160,7 +164,8 @@ font-family: "Quicksand"
 
 .numbers {
 fill: white;
-font-family: sans-serif;
+font-family: "Quicksand";
+font-size: 6pt;
 }
 
 .axis path,

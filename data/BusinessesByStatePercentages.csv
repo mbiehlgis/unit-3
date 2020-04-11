@@ -1,4 +1,4 @@
-State,name,Percentage of State Businesses that are SBs,Percentages Employed by SB,Number of F500 Companies,Percentage of Small Businesses Owned by Minorities,Number of F1000 Companies,Percentage of F1000 HQs in State
+State,name,Percentage of State Businesses that are Small Businesses,Percentages Employed by Small Businesses,Number of Fortune 500 Company Headquarters,Percentage of Small Businesses Owned by Minorities,Number of Fortune 1000 Company Headquarters,Percentage of Fortune 1000 HQs in State
 AL,Alabama,99.4,47.2,1,20,3,0.3
 AK,Alaska,99.1,53,0,17,0,0
 AZ,Arizone,99.4,43.7,4,26,17,1.7
