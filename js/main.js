@@ -1,6 +1,6 @@
 // TO  DO
 // 1. Y-Axis Scale no longer inverted, but doesnt change when switching attribuutes
-// 2. Chart is not within frame created for it
+// 2. Bars are colored opposite of the scale used for it
 // 3. Add labels for each bar with state abbreviations
 // 4. SVG for Chart cannot be moved with html
 // 5. Lakes are behind States

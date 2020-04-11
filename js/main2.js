@@ -76,6 +76,7 @@ function setMap(){
 
         //join csv data to GeoJSON enumeration units
         franceRegions = joinData(franceRegions, csvData);
+        console.log(franceRegions); 
 
         var colorScale = makeColorScale(csvData)
 
