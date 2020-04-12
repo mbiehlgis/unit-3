@@ -279,6 +279,8 @@ function changeAttribute(attribute, csvData){
 
     //recolor enumeration units
     var regions = d3.selectAll(".regions")
+        .transition()
+        .duration(1000)
         .style("fill", function(d){
             var value = d.properties[expressed];
             if(value) {
@@ -293,12 +295,22 @@ function changeAttribute(attribute, csvData){
         //re-sort bars
         .sort(function(a, b){
             return b[expressed] - a[expressed];
-        });
+        })
+        .transition() //add animation
+        .delay(function(d, i){
+            return i * 20
+        })
+        .duration(1000);
 
     var numbers = d3.selectAll(".numbers")
         .sort(function(b, a){
             return a[expressed]-b[expressed]
         })
+        .transition() //add animation
+        .delay(function(d, i){
+            return i * 20
+        })
+        .duration(1000);
 
     //set bar positions, heights, and colors
     updateChart(bars, numbers, csvData.length, colorScale);

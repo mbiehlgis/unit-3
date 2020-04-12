@@ -160,7 +160,16 @@ function setEnumerationUnits(usaStates, map, path, colorScale){
             } else {
               return "#C0C0C0";
             }
-    });
+        })
+        .on("mouseover", function(d){
+            highlight(d.properties);
+        })
+        .on("mouseout", function(d){
+            dehighlight(d.properties);
+        });
+
+    var desc = states.append("desc")
+        .text('{"stroke": "#000", "stroke-width": "0.5px"}');
 };
 
 //function to create coordinated bar chart
@@ -185,6 +194,8 @@ function setChart(csvData, colorScale){
             return "bar " + d.name;
         })
         .attr("width", chartWidth / csvData.length - 1)
+        .on("mouseover", highlight)
+        .on("mouseout", dehighlight);
         // .attr("x", function(d, i){
         //     return i * (chartWidth / csvData.length);
         // })
@@ -231,6 +242,9 @@ function setChart(csvData, colorScale){
     //set bar positions, heights, and colors
     updateChart(bars, numbers, csvData.length, colorScale);
 
+    var desc = bars.append("desc")
+        .text('{"stroke": "none", "stroke-width": "0px"}');
+
 };
 
 //function to create a dropdown menu for attribute selection
@@ -268,6 +282,8 @@ function changeAttribute(attribute, csvData){
 
     //recolor enumeration units
     var states = d3.selectAll(".states")
+        .transition()
+        .duration(1000)
         .style("fill", function(d){
             var value = d.properties[expressed];
             if(value) {
@@ -282,12 +298,22 @@ function changeAttribute(attribute, csvData){
         //re-sort bars
         .sort(function(a, b){
             return b[expressed] - a[expressed];
-        });
+        })
+        .transition() //add animation
+        .delay(function(d, i){
+            return i * 20
+        })
+        .duration(1000);
 
     var numbers = d3.selectAll(".numbers")
         .sort(function(b, a){
             return a[expressed]-b[expressed]
         })
+        .transition() //add animation
+        .delay(function(d, i){
+            return i * 20
+        })
+        .duration(1000);
 
 
     //set bar positions, heights, and colors
@@ -328,6 +354,35 @@ function updateChart(bars, numbers, n, colorScale){
     // var chartTitle = d3.select(".chartTitle")
     //     .text("Number of Variable " + expressed[3] + " in each region");
 
+};
+
+//function to highlight enumeration units and bars
+function highlight(props){
+    //change stroke
+    var selected = d3.selectAll("." + props.name)
+        .style("stroke", "#2c7fb8")
+        .style("stroke-width", "2");
+};
+
+//function to reset the element style on mouseout
+function dehighlight(props){
+    var selected = d3.selectAll("." + props.name)
+        .style("stroke", function(){
+            return getStyle(this, "stroke")
+        })
+        .style("stroke-width", function(){
+            return getStyle(this, "stroke-width")
+        });
+
+    function getStyle(element, styleName){
+        var styleText = d3.select(element)
+            .select("desc")
+            .text();
+
+        var styleObject = JSON.parse(styleText);
+
+        return styleObject[styleName];
+    };
 };
 
 })(); //last line of main.js

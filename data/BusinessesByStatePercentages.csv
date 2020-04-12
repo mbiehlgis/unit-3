@@ -1,7 +1,7 @@
 State,name,Percentage of State Businesses that are Small Businesses,Percentages Employed by Small Businesses,Number of Fortune 500 Company Headquarters,Percentage of Small Businesses Owned by Minorities,Number of Fortune 1000 Company Headquarters,Percentage of Fortune 1000 HQs in State
 AL,Alabama,99.4,47.2,1,20,3,0.3
 AK,Alaska,99.1,53,0,17,0,0
-AZ,Arizone,99.4,43.7,4,26,17,1.7
+AZ,Arizona,99.4,43.7,4,26,17,1.7
 AR,Arkansas,99.3,47.9,6,12,8,0.8
 CA,California,99.8,48.8,53,52,114,11.4
 CO,Colorado,99.5,48.2,10,18,16,1.6
@@ -48,5 +48,5 @@ VT,Vermont,99,61.3,0,6,1,0.1
 VA,Virginia,99.5,47.2,23,34,38,3.8
 WA,Washington,99.5,51.4,10,32,15,1.5
 WV,West Virginia,98.9,49.2,0,11,0,0
-WI ,Wisconsin,99.4,49.9,9,13,23,2.3
+WI,Wisconsin,99.4,49.9,9,13,23,2.3
 WY,Wyoming,98.8,63.1,0,10,0,0

@@ -86,7 +86,7 @@ stroke-width: 2px;
 
 .states {
 fill: #25383C;
-stroke: gray !important;
+stroke: #2c7fb8 !important;
 stroke-width: .5px;
 stroke-linecap: round;
 }
@@ -165,7 +165,7 @@ font-family: "Quicksand"
 .numbers {
 fill: white;
 font-family: "Quicksand";
-font-size: 6pt;
+font-size: 5pt;
 }
 
 .axis path,
