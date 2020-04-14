@@ -281,7 +281,7 @@ function setChart(csvData, colorScale){
             return a[expressed]-b[expressed]
         })
         .attr("class", function(d){
-            return "numbers " + d.name;
+            return "numbers";
         })
         .attr("text-anchor", "middle")
         .attr("x", function(d, i){
@@ -426,7 +426,7 @@ function updateChart(bars, numbers, n, colorScale){
 
 //function to highlight enumeration units and bars
 function highlight(props){
-  console.log(props.name.replace(/\s+/g, ''))
+  //console.log(props.name.replace(/\s+/g, ''))
 
                 //change STROKE highlight method
     var selected = d3.selectAll("." + props.name.replace(/\s+/g, ''))
@@ -444,7 +444,7 @@ function highlight(props){
 //function to reset the element style on mouseout
 function dehighlight(props){
                         // STROKE
-    var selected = d3.select("." + props.name.replace(/\s+/g, ''))
+    var selected = d3.selectAll("." + props.name.replace(/\s+/g, ''))
         .style("stroke", function(){
             return getStyle(this, "stroke")
         })
@@ -491,8 +491,8 @@ function setLabel(props){
   //console.log(props.name);
 
     //label content
-    var labelAttribute = "<h1>" + props[expressed] +
-        "</h1><b>" + expressed + "</b>";
+    var labelAttribute = "<center><h1>" + props[expressed] +
+        "</h1></center>";
 
     //create info label div
     var infolabel = d3.select("body")
