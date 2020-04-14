@@ -7,9 +7,18 @@ top: 0px;
 
 #headerText {
 padding-top: 10px;
-color: white;
+padding-left: 20px;
+color: #fff;
 font-family: "Quicksand"
 }
+
+#subheaderText {
+padding-top: 10px;
+padding-left: 20px;
+color: #74a9cf;
+font-family: "Quicksand"
+}
+
 
 
           /* BODY */
@@ -20,14 +29,14 @@ overflow-x: scroll;
 .mainContainer {
 padding-top: 1vh;
 flex: 100%;
-height: 113vh;
+height: 50vh;
 /* max-width: 25%; */
-width: 25%;
+width: 98vw;
 float: left;
 /* overflow: hidden; */
 position: relative;
 display: inline-block;
-padding-left: 5px
+padding-left: .2px
 }
 
 .BodyContainer {
@@ -45,11 +54,6 @@ margin-right: 0;
 scrollbar-width: .3;
 -ms-overflow-style: none;
 display: inline-block;
-}
-
-.footer {
-font-family: "Quicksand";
-color: white;
 }
 
 
@@ -71,7 +75,8 @@ width: 500vw;
 .map {
 border: medium solid #fff;
 margin: 10px 0 0 20px;
-background-color: #1A1A1A;
+/* background-color: #1A1A1A; */
+background-color: #000;
 position: relative;
 float: left;
 flex: 75%;
@@ -86,13 +91,13 @@ stroke-width: 2px;
 
 .states {
 fill: #25383C;
-stroke: #2c7fb8 !important;
+stroke: #000;
 stroke-width: .5px;
 stroke-linecap: round;
 }
 
 .lakes {
-fill: #6baed6;
+fill: #737CA1;
 stroke: gray;
 stroke-width: .5px;
 }
@@ -145,9 +150,9 @@ font-weight: bold;
 
 .dropdown {
 position: absolute;
-top: 102px;
+top: 128px;
 /* left: 659px; */
-left: 30px;
+left: 23px;
 z-index: 10;
 font-family: "Quicksand" !important;
 font-size: 1em;
@@ -163,9 +168,10 @@ font-family: "Quicksand"
 }
 
 .numbers {
-fill: white;
+fill: white !important;
 font-family: "Quicksand";
 font-size: 5pt;
+stroke: none !important;
 }
 
 .axis path,
@@ -182,7 +188,69 @@ font-size: 0.8em;
 fill: white;
 }
 
+          /* L A B E L S */
 
+.infolabel {
+    margin: 0 20px 0 0;
+    position: absolute;
+    height: 75px;
+    min-width: 100px;
+    color: #fff;
+    background-color: #2B547E;
+    border: solid medium #fff;
+    padding: 5px 10px;
+    top: -75px;
+}
+
+.infolabel h1 {
+    margin: 0 20px 0 0;
+    padding: 0;
+    display: inline-block;
+    line-height: 1em;
+}
+
+          /* Info Text */
+
+.InfoDiv {
+  color: white;
+  padding-top: 520px;
+  padding-left: 20px;
+  font-family: "Quicksand";
+}
+
+.TextHeader {
+  font-size: 20pt;
+}
+
+.SubText {
+  font-size: 15pt;
+  float: left;
+  width: 500px;
+  line-height: 2;
+  color: #151B8D;
+}
+
+.image {
+  float: right;
+  /* padding-right: 10px; */
+}
+
+#panel {
+    width: 36%;
+    height: 300px;
+    padding-left:25px;
+    padding-right:25px;
+	  padding-top:20px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    line-height: 42px;
+}
+
+#accordion,
+.panel-group {
+  width: 98%;
+}
 
 
 

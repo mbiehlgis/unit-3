@@ -17,6 +17,8 @@
         <!-- <link rel="stylesheet" href="css/style.css"> -->
 
         <!-- MY DATA 2ND ATTEMPT -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/style2.css">
 
 
@@ -26,19 +28,20 @@
 
         <header class="header">
 
-            <center><h1 id="headerText">AMERICA'S BUSINESS LANDSCAPE</h1></center>
+            <h1 id="headerText">America's 2020 Business Landscape</h1>
+            <h5 id="subheaderText">Created by: Michael W Biehl</h5>
 
         </header>
 
-         <!-- <div class="mainContainer">
+        <br>
 
+         <div class="mainContainer">
+<!--
             <div class="BodyContainer">
 
-                <div class="bodyText"></div>
+                <div class="bodyText"></div> -->
 
-            </div>
 
-         </div> -->
 
             <!-- <div class="mapAndChart"></div> -->
 
@@ -47,9 +50,79 @@
 
 
         <!--put your external script links here-->
+        <script type="text/javascript" src="lib/jquery-3.4.1.js"></script>
         <script type="text/javascript" src="lib/topojson.js"></script>
         <script type="text/javascript" src="lib/d3/d3.js"></script>
-        <script type="text/javascript" src="js/main3.js"></script>
+        <script type="text/javascript" src="lib/ss.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/main2.js"></script>
+
+        </div>
+
+        <div class="InfoDiv">
+
+          <h2 class="TextHeader">At a Glance:</h2>
+
+          <div class="panel-group" id="accordion">
+
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1">Business in America Today      <img src="img/down_arrow.png"/></a>
+                  </div>
+
+                  <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      <p class="SubText">With the advent of the internet and growth of massive multi-national
+                        supply chains over the past decade, small businesses and entrepeneurship have become
+                        a holistic and integral part of the contemporary American culture and economy. For relatively
+                        little start-up cost, anyone with an idea or talent can create, grow, and export their
+                        brand to the rest of the world.
+                      </p>
+                      <img class="image" src="img/BusinessStockPhoto.jpg" style="width: 700px">
+
+                    </div>
+                  </div>
+              </div>
+
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Small Businesses Today      <img src="img/down_arrow.png"/></a>
+                  </div>
+
+                  <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      <p class="SubText">Sample Text</p>
+
+                    </div>
+                  </div>
+              </div>
+
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Corporations Today      <img src="img/down_arrow.png"/></a>
+                  </div>
+
+                  <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      <p class="SubText">Sample Text</p>
+
+                    </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="footer">
+              <center>
+              <p class="footer">Data Provided By:</p>
+              <a href="https://advocacy.sba.gov/2019/04/24/2019-small-business-profiles-for-the-states-and-territories/" style="color:#74a9cf"><p>US Small Business Administration</p></a>
+            </center>
+          </div>
 
     </body>
 
@@ -57,7 +130,6 @@
       <div class="footer">
         <center>
           <p class="footer">Data Sources:</p>
-          <br>
           <br>
           <a href="https://advocacy.sba.gov/2019/04/24/2019-small-business-profiles-for-the-states-and-territories/" style="color:white"><p>Small Business Administration</p></a>
         </center>
