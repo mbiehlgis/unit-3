@@ -85,35 +85,38 @@ function setMap(){
 
   }; //END OF SET MAP
 
-  //Function: join data from CSV to topojson//
-  function joinData(usaStates, csvData) {
-      //Loop through csv to assign csv attributes to geojson region
-      for (var i = 0; i < csvData.length; i++) {
-          //The current region in loop index
-          var usaState = csvData[i];
-          //Create key for CSV file
-          var usaKey = usaState.name;
-          //Loop Through CSV
-          for (var a = 0; a < usaStates.length; a++) {
-              //Get current properties of the indexed region
-              var geojsonProps = usaStates[a].properties;
-              //Get the name of the indexed region
-              var geojsonKey = geojsonProps.name
-              //If the keys match, transfer the CSV data to geojson properties object
-              if (geojsonKey == usaKey) {
-                  //Assign all attributes and values using each attr item in the array
-                  attrArray.forEach(function (attr) {
-                      //Get CSV value as float
-                      var val = parseFloat(usaState[attr]);
-                      //Assign attribute and change string to float to geojson properties
-                      geojsonProps[attr] = val
-                  });
-              };
-          };
-      };
-      return usaStates;
-  };
 
+//Function to join CSV and JSON Data
+function joinData(usaStates, csvData) {
+
+    //Loop through csv to assign csv attributes to geojson region
+    for (var i = 0; i < csvData.length; i++) {
+
+        var usaState = csvData[i];  //THE CURRENT REGION
+        var usaKey = usaState.name; //CSV PRIMARY KEY
+
+        //Loop Through JSON regions to detect correct region
+        for (var a = 0; a < usaStates.length; a++) {
+
+            var geojsonProps = usaStates[a].properties;  //Current Region JSON Properties
+            var geojsonKey = geojsonProps.name //geoJSON primary key
+
+            //If the JSON key matches the CSV key, the CSV data is appended to the JSON
+            if (geojsonKey == usaKey) {
+
+                //Assign all attributes and values
+                attrArray.forEach(function (attr) {
+                    var val = parseFloat(usaState[attr]); //Get CSV value as float
+                    geojsonProps[attr] = val              //Assign attribute and change string to float to geojson properties
+
+                });
+            };
+        };
+    };
+    return usaStates;
+};
+
+//function to create color scale generator
 function makeColorScale(data){
 // GREEN COLOR SCALE
     // var colorClasses = [
@@ -159,7 +162,7 @@ function makeColorScale(data){
     // return colorScale;
 
                   // NATURAL BREAKS SCALE
-        //create color scale generator
+    //create color scale generator
     var colorScale = d3.scaleThreshold()
         .range(colorClasses);
 
@@ -186,7 +189,8 @@ function makeColorScale(data){
 };
 
 function setEnumerationUnits(usaStates, map, path, colorScale){
-    //add usa states to map
+
+    //add states to map
     var states = map.selectAll(".states")
         .data(usaStates)
         .enter()
@@ -215,7 +219,7 @@ function setEnumerationUnits(usaStates, map, path, colorScale){
     var desc = states.append("desc")
         .text('{"stroke": "#000", "stroke-width": ".5px"}');
 
-    //alternate dehighlight for fill 
+    //alternate dehighlight for fill
     // var desc = states.append("desc")
     //     .text('{"fill": "blue"}');
 
@@ -357,7 +361,6 @@ function changeAttribute(attribute, csvData){
         })
         .duration(1000);
 
-
     //set bar positions, heights, and colors
     updateChart(bars, numbers, csvData.length, colorScale);
 
@@ -380,6 +383,7 @@ function updateChart(bars, numbers, n, colorScale){
             return colorScale(d[expressed]);
         });
 
+
     numbers.attr("text-anchor", "middle")
         .attr("x", function(d, i){
             var fraction = chartWidth / csvData.length;
@@ -391,6 +395,7 @@ function updateChart(bars, numbers, n, colorScale){
         .text(function(d){
             return d[expressed];
         });
+
 
     var chartTitle = d3.select(".chartTitle")
         .text(expressed);
@@ -415,7 +420,7 @@ function highlight(props){
 
 //function to reset the element style on mouseout
 function dehighlight(props){
-                        // STROKE
+                        // STROKE DEHIGHLIGHT
     var selected = d3.selectAll("." + props.name.replace(/\s+/g, ''))
         .style("stroke", function(){
             return getStyle(this, "stroke")
@@ -434,7 +439,7 @@ function dehighlight(props){
         return styleObject[styleName];
         };
 
-    //                     //FILL
+    //                     //FILL DEHIGHLIGHT
     // var selected = d3.selectAll("." + props.name.replace(/\s+/g, ''))
     //     .style("fill", function(){
     //         return getStyle(this, "fill")
@@ -456,7 +461,6 @@ function dehighlight(props){
     d3.select(".infolabel")
         .remove();
 };
-
 
 //function to create dynamic label
 function setLabel(props){
