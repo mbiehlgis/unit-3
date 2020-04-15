@@ -144,9 +144,10 @@ shape-rendering: crispEdges;
 }
 
 .chartTitle {
-font-family: sans-serif;
+font-family: Quicksand;
 font-size: 15pt;
 font-weight: bold;
+fill: #fff;
 }
 
 .dropdown {
@@ -161,11 +162,14 @@ font-weight: bold;
 padding: 2px;
 border: 1px solid #999;
 box-shadow: 2px 2px 4px #999;
+background-color: #045a8d;
+background-image: linear-gradient(to bottom, #045a8d 0, #2b8cbe 100%) !important;
+color: white;
 }
 
 option {
 font-weight: normal;
-font-family: "Quicksand"
+font-family: "Quicksand" !important;
 }
 
 .numbers {
@@ -197,10 +201,12 @@ fill: white;
     height: 75px;
     min-width: 100px;
     color: #fff;
-    background-color: #2B547E;
+    /* background-color: #2B547E; */
+    background-image: linear-gradient(to bottom, #045a8d 0, #2b8cbe 100%) !important;
     border: solid medium #fff;
     padding: 5px 10px;
     top: -75px;
+    text-align: center;
 }
 
 .infolabel h1 {
@@ -208,6 +214,7 @@ fill: white;
     padding: 0;
     display: inline-block;
     line-height: 1em;
+    text-align: center;
 }
 
           /* Info Text */
@@ -253,7 +260,20 @@ fill: white;
   width: 98%;
 }
 
+.panel-heading {
+  background-image: linear-gradient(to bottom, #045a8d 0, #2b8cbe 100%) !important;
+}
 
+.panel-title {
+  color: white;
+}
+
+
+.footer {
+  line-height: 10pt;
+  text-align: right;
+  padding-right: 20px;
+}
 
 /* ------ Testing Responsive Mobile Design ------ */
 

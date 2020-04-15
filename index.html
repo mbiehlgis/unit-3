@@ -36,26 +36,14 @@
         <br>
 
          <div class="mainContainer">
-<!--
-            <div class="BodyContainer">
 
-                <div class="bodyText"></div> -->
-
-
-
-            <!-- <div class="mapAndChart"></div> -->
-
-        <!--you can also use this space for internal scripts;
-        place these within <script> tags-->
-
-
-        <!--put your external script links here-->
+        <!--EXTERNAL SCRIPTS-->
         <script type="text/javascript" src="lib/jquery-3.4.1.js"></script>
         <script type="text/javascript" src="lib/topojson.js"></script>
         <script type="text/javascript" src="lib/d3/d3.js"></script>
         <script type="text/javascript" src="lib/ss.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
-        <script type="text/javascript" src="js/main2.js"></script>
+        <script type="text/javascript" src="lib/bootstrap.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
 
         </div>
 
@@ -68,19 +56,22 @@
               <div class="panel panel-default">
                   <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1">Business in America Today      <img src="img/down_arrow.png"/></a>
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1">Business in America Today      <img src="img/down_arrow_white.png"/></a>
                   </div>
 
                   <div id="collapse1" class="panel-collapse collapse">
                     <div class="panel-body">
 
-                      <p class="SubText">With the advent of the internet and growth of massive multi-national
-                        supply chains over the past decade, small businesses and entrepeneurship have become
+                      <p class="SubText">With the advent of the Internet and growth of massive multi-national
+                        supply chains over the past decade, small businesses and entrepreneurship have become
                         a holistic and integral part of the contemporary American culture and economy. For relatively
                         little start-up cost, anyone with an idea or talent can create, grow, and export their
-                        brand to the rest of the world.
+                        brand to the rest of the world. This map is designed to display a snapshot of how American
+                        businesses exist today, providing a variety of indicators for small businesses as well as
+                        some contextual data involving corporations to demonstrate the overall makeup of the American
+                        economy.
                       </p>
-                      <img class="image" src="img/BusinessStockPhoto.jpg" style="width: 700px">
+                      <img class="image" src="img/BusinessStockPhoto.jpg" style="width: 690px; height: 520px;">
 
                     </div>
                   </div>
@@ -89,13 +80,26 @@
               <div class="panel panel-default">
                   <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Small Businesses Today      <img src="img/down_arrow.png"/></a>
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Small Businesses Today      <img src="img/down_arrow_white.png"/></a>
                   </div>
 
                   <div id="collapse2" class="panel-collapse collapse">
                     <div class="panel-body">
 
-                      <p class="SubText">Sample Text</p>
+                      <p class="SubText">The American Small Business model has allowed for anyone to create and nurture a brand for themselves, and if done successfully,
+                        can lead to a very fruitful lifestyle and career. This path however often requires both dedication, expertise in one's craft, and arguably even some luck.
+                        According to data from the U.S. Bureau of Labor Statistics, <b>20%</b> of small businesses <b>fail</b> in their first year of operation, and <b>50%</b> of them
+                        fail after 5 years of operating.
+                        <br>
+                        <br>
+                        Those who have found success would say the risk is entirely worth it, a plethora of rags-to-riches stories exist in our history. A notable case study within
+                        that group however are Americans who identify as a minority, person of color, or reside in a marginalized community. The prospect of creating a small business
+                        for themselves can often be a path that leads them out of, or at the very least, mitigate societal inequality and structural oppression they may face. The small business
+                        owner may not be powerful enough to continuously lobby congress or vertically integrate every stage of a multi-national supply chain, but they may be powerful enough to end a
+                        multi-generational ancestral history of oppression and poverty, which some would say is worth more than an entire monopoly of power.
+                      </p>
+                      <img class="image" src="img/SmallBizGraphic.png" style="width: 690px;">
+
 
                     </div>
                   </div>
@@ -104,13 +108,31 @@
               <div class="panel panel-default">
                   <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Corporations Today      <img src="img/down_arrow.png"/></a>
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Corporations Today      <img src="img/down_arrow_white.png"/></a>
                   </div>
 
                   <div id="collapse3" class="panel-collapse collapse">
                     <div class="panel-body">
 
-                      <p class="SubText">Sample Text</p>
+                      <p class="SubText">The topic of corporations in America is an inherently controversial one, even the data
+                        on the map above hints at this. For example, go ahead and try setting the attribute to display the "Percentage of State
+                        Businesses that are Small Businesses" and select New York. You will notice that New York stands at the top of the category with
+                        99.8% of its businesses designated as a small business. However, if you change the attribute to "Percentage Employed by Small
+                        Businesses", you can see that only 50.2% of New York is employed by them. What this is telling us in context is that a very small
+                        handful of mega-corporations manage to employ nearly half of the New York's workforce, despite only making up .2% of total businesses
+                        (note that this share is also consists of public-sector jobs which is not included in this study).
+                        <br>
+                        <br>
+                        To provide a more global context to this American-centered study, take a look at the graphic to the right that displays where the world's
+                        top 1000 companies originate from. Unsurprisingly, the United States has the largest share of these companies with a total of 404, nearly half of
+                        the entire list and triple that of the next largest shareholder (China).
+                        <br>
+                        <br>
+                        The balance between small businesses and corporations is an important one to maintain. Corporations are often an integral component of those smaller company's supply chains, often acting
+                        as manufacturers or as intermediaries between firm and consumer. Too heavy a hand on either side however can lead to logistical inefficiencies
+                        or embedded corruption, which arguably is rampant in our current structure.
+                      </p>
+                      <img class="image" src="img/largest-public-companies.png" style="width: 700px; height: 1200px;">
 
                     </div>
                   </div>
@@ -118,22 +140,14 @@
           </div>
 
           <div class="footer">
-              <center>
-              <p class="footer">Data Provided By:</p>
-              <a href="https://advocacy.sba.gov/2019/04/24/2019-small-business-profiles-for-the-states-and-territories/" style="color:#74a9cf"><p>US Small Business Administration</p></a>
-            </center>
+              <!-- <center> -->
+              <p class="footer" style="padding-right: 0px">Data and Resources Provided By:</p>
+              <a href="https://advocacy.sba.gov/2019/04/24/2019-small-business-profiles-for-the-states-and-territories/" target="_value" style="color:#74a9cf"><p>US Small Business Administration</p></a>
+              <a href="https://www.guidantfinancial.com/learning-center/infographics/2019-small-business-trends/" target="_value" style="color:#74a9cf"><p>Guidant Financial</p></a>
+              <a href="https://spendmenot.com/largest-public-companies/" target="_value" style="color:#74a9cf"><p>SpendMeNot.com</p></a>
+            <!-- </center> -->
           </div>
 
     </body>
-
-    <!-- <footer>
-      <div class="footer">
-        <center>
-          <p class="footer">Data Sources:</p>
-          <br>
-          <a href="https://advocacy.sba.gov/2019/04/24/2019-small-business-profiles-for-the-states-and-territories/" style="color:white"><p>Small Business Administration</p></a>
-        </center>
-      </div>
-    </footer> -->
 
 </html>
